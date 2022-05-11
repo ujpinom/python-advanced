@@ -22,10 +22,12 @@ class Contact():
 
     all_contacts = ContactList()
 
-    def __init__(self,nombre:str,email:str)->None:
+    def __init__(self,nombre:str='',email:str='', **kwargs)->None:
 
         self.nombre = nombre
         self.email= email
+
+        super().__init__(**kwargs)
 
         Contact.all_contacts.append(self)
 
@@ -37,8 +39,9 @@ class Contact():
 
 class AddresHolder():
 
-    def __init__(self, street:str, state: str, code: str)-> None:
+    def __init__(self,street:str='', state: str='', code: str='',**kwargs)-> None:
 
+        super().__init__(**kwargs)
         self.street = street
         self.state = state
         self.code = code
@@ -46,11 +49,18 @@ class AddresHolder():
 
 class Friend(AddresHolder, Contact):
 
-    def __init__(self,nombre:str,email:str,tel:str,street: str,state: str, code:str):
+    def __init__(self,tel:str='',**kwargs):
 
-        Contact.__init__(self,nombre,email)
+        '''
+         Recibe todos los argumentos  necesarios para la construccion del objecto tipo Friend
 
-        AddresHolder.__init__(self,street,state,code)
+        :param tel: Telefono de nustro amigo
+        :param kwargs: Adicional argumentos para la super clase los parametros deben ser los siguientes
+        
+
+        '''
+
+        super().__init__(**kwargs)
 
         self.tel= tel
 
@@ -63,10 +73,12 @@ class Friend(AddresHolder, Contact):
 c1 = Contact("John A", "johna@example.net")
 c2 = Contact("John B", "johnb@sloop.net")
 c3 = Contact("Jenna C", "cutty@sark.io")
-f = Friend("Dusty", "Dusty@private.com", "555-1212",'perro','gayo','123')
+
+f = Friend(tel='134234324',street='sdfsd',state='asdasd',code='asasdasd',nombre='Uriel',email='holaperro@unal.edu.co')
 
 print([nombre for nombre in Contact.all_contacts.search('John')])
 
 print(f)
 
 print(Friend.__mro__)
+print(f.code)
