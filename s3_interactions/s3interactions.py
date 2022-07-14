@@ -26,6 +26,7 @@ def set_up_logging():
     )
 
 
+
 def load_sections_df(file_path: str, sep: str = ";") -> pd.DataFrame:
     col_types = {
         "xmin": int,
